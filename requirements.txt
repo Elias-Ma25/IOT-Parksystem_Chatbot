@@ -1,0 +1,5 @@
+streamlit
+openai
+python-dateutil
+pandas
+numpy
