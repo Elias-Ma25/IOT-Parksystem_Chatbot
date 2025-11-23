@@ -7,18 +7,31 @@ from openai import OpenAI
 # Passwortschutz
 PASSWORD = "Iobroker21"
 
+# Session-Variable für Login
 if "authenticated" not in st.session_state:
     st.session_state["authenticated"] = False
 
+# Wenn nicht eingeloggt
 if not st.session_state["authenticated"]:
     st.title("🔒 Geschützte App")
+
     pwd = st.text_input("Passwort eingeben:", type="password")
 
-    if pwd == PASSWORD:
-        st.session_state["authenticated"] = True
-        st.experimental_rerun()
-    else:
-        st.stop()
+    login_btn = st.button("🔓 Anmelden")
+
+    # Prüfen nur, wenn Button gedrückt wurde
+    if login_btn:
+        if pwd == PASSWORD:
+            st.session_state["authenticated"] = True
+            st.rerun()
+        else:
+            st.error("❌ Falsches Passwort!")
+
+    st.stop()   # verhindert Laden der restlichen App
+
+# Ab hier ist die App frei zugänglich
+st.success("Willkommen! 👋")
+
 
 # -------------------------------------------------
 # 1. Simulierter Zeitpunkt
