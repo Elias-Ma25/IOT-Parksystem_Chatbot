@@ -4,6 +4,22 @@ from datetime import datetime
 import streamlit as st
 from openai import OpenAI
 
+# Passwortschutz
+PASSWORD = "Iobroker21"
+
+if "authenticated" not in st.session_state:
+    st.session_state["authenticated"] = False
+
+if not st.session_state["authenticated"]:
+    st.title("🔒 Geschützte App")
+    pwd = st.text_input("Passwort eingeben:", type="password")
+
+    if pwd == PASSWORD:
+        st.session_state["authenticated"] = True
+        st.experimental_rerun()
+    else:
+        st.stop()
+
 # -------------------------------------------------
 # 1. Simulierter Zeitpunkt
 # -------------------------------------------------
